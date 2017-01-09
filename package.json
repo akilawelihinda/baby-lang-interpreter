@@ -1,0 +1,22 @@
+{
+  "name": "baby-lang-interpreter",
+  "version": "1.0.0",
+  "description": "An interpreter for my own simple language",
+  "main": "interpreter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akilawelihinda/baby-lang-interpreter.git"
+  },
+  "author": "Akila Welihinda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akilawelihinda/baby-lang-interpreter/issues"
+  },
+  "homepage": "https://github.com/akilawelihinda/baby-lang-interpreter#readme",
+  "dependencies": {
+    "get-stdin": "^5.0.1"
+  }
+}
