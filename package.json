@@ -18,5 +18,8 @@
   "homepage": "https://github.com/akilawelihinda/baby-lang-interpreter#readme",
   "dependencies": {
     "get-stdin": "^5.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
   }
 }

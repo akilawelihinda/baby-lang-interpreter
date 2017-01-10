@@ -44,7 +44,7 @@ function InputStream(input) {
 
     function errorMessage(error) {
         //TODO
-        console.log(error + "at line " + line + " and column " + col);
+        console.log(error + " at line " + line + " and column " + col);
         console.log("Error message is currently NOT handled LOL");
     }
 
@@ -56,7 +56,7 @@ function InputStream(input) {
     };
 }
 
-exports.InputStream = InputStream
+exports.InputStream = InputStream;
 
 
 //Tokenizer
@@ -108,23 +108,23 @@ function TokenStream(inputStream) {
     }
 
     function skip_comment() {
-        read_while(function(ch) {ch != "\n";});
+        read_while(function(ch) {return ch != "\n";});
     }
 
     function get_string() {
         inputStream.next(); // skip start quote
-        var retStr = read_while(function(ch) {ch != "\"";});
+        var retStr = read_while(function(ch) {return ch != "\"";});
         inputStream.next(); // skip end quote
         return {type: "str", val: retStr};
     }
 
     function get_number() {
-        var num = read_while(function(ch) { digits.indexOf(ch) >= 0;});
+        var num = read_while(function(ch) { return digits.indexOf(ch) >= 0;});
         return {type: "num", val: parseFloat(num)};
     }
 
     function get_identifier() {
-        var id = read_while(is_alpha());
+        var id = read_while(is_alpha);
         if (keywords.indexOf(id) >= 0 )
             return {type: "keyword", val: id};
         else
@@ -143,8 +143,9 @@ function TokenStream(inputStream) {
 
     // Reads the next token in the stream, but don't advance
     function read_next() {
-        var currChar = inputStream.peek();
         read_while(is_whitespace); // skip whitespace
+        var currChar = inputStream.peek();
+
         if (inputStream.isEOF()) // check EOF
             return null;
         else if (is_comment(currChar)) { // ignore comments
@@ -161,7 +162,7 @@ function TokenStream(inputStream) {
             return get_punc();
         else if (is_op(currChar)) // capture operators
             return get_op();
-        else
+        else // throw error
             inputStream.errorMessage("Invalid character");
     }
 
@@ -184,4 +185,13 @@ function TokenStream(inputStream) {
     function isEOF() {
         return peek() == null;
     }
+    
+    return {
+        next: next,
+        peek: peek,
+        isEOF: isEOF,
+        errorMessage: inputStream.errorMessage
+    }
 }
+
+exports.TokenStream = TokenStream;
